@@ -14,7 +14,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -32,8 +31,32 @@ public class UserController {
     @Resource
     MessagesService messagesService;
 
-    @PostMapping("/list")
-    public Object getList(HttpServletRequest request, HttpServletResponse response, @RequestBody JSONObject params) {
+    @GetMapping("/list")
+    public Object getList(HttpServletRequest request, HttpServletResponse response) {
+        try {
+
+            List<User> userList = userService.getList(0, 10, "%");
+            return new JsonResp(0, "success", "100", userList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return JsonResp.httpCode(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR).errorResp(messagesService.getMessage("error", new Object[]{"query user is error "}));
+    }
+
+    @GetMapping("/user/{id}")
+    public Object getUser(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") Long id) {
+        User user = userService.getById(id);
+        return new JsonResp(0, "success", user);
+    }
+
+    @GetMapping("/update")
+    public Object updateUser(HttpServletRequest request, HttpServletResponse response, User user) {
+        userService.updateUser(user);
+        return new JsonResp(0, "success", user);
+    }
+
+    @PostMapping("/list2")
+    public Object getList2(HttpServletRequest request, HttpServletResponse response, @RequestBody JSONObject params) {
         try {
             int page = params.getInteger("page");
             int offset = params.getInteger("offset");
@@ -64,15 +87,15 @@ public class UserController {
     public Object register(HttpServletRequest request, HttpServletResponse response, User user) {
         try {
             user.setIp(GetIpUtil.getIpAddr(request));
-            user.setRegistrationTime(new Date());
-            user.setProfilePhone("aa");
+            user.setRegistTime(new Date().getTime());
+            user.setPhoto("aa");
             if (StringUtils.isEmpty(user.getNickname())) {
                 user.setNickname(user.getName());
             }
-            user.setAge(CommonUtil.getAge(user.getBirthday()));
+            user.setAge(CommonUtil.getAge(user.getBirth()));
             user.setCode(CommonUtil.getUUID());
             Integer rows = userService.addUser(user);
-            if (rows == null && rows <= 0) {
+            if (rows == null || rows <= 0) {
                 return JsonResp.httpCode(response, HttpServletResponse.SC_BAD_REQUEST).errorResp(messagesService.getMessage("parameter.error", new Object[]{"register user "}));
             }
             response.sendRedirect("/email/send/" + user.getCode());
@@ -90,40 +113,6 @@ public class UserController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-
-    private User jsonToUser(JSONObject params) {
-        User user = new User();
-
-        Long id = params.getLong("id");
-        String ip = params.getString("ip");
-        String name = params.getString("name");
-        String password = params.getString("password");
-        String email = params.getString("email");
-        String profilePhone = params.getString("profilePhone");
-        String level = params.getString("level");
-        String rights = params.getString("rights");
-        Timestamp registrationTime = params.getTimestamp("registrationTime");
-        String birthday = params.getString("birthday");
-        Integer age = params.getInteger("age");
-        Integer telephoneNumber = params.getInteger("telephoneNumber");
-        String nickname = params.getString("nickname");
-
-        user.setId(id);
-        user.setIp(ip);
-        user.setName(name);
-        user.setPassword(password);
-        user.setEmail(email);
-        user.setProfilePhone(profilePhone);
-        user.setLevel(level);
-        user.setRights(rights);
-        user.setRegistrationTime(registrationTime);
-        user.setBirthday(CommonUtil.longToString(CommonUtil.getTimestamp(birthday, "yyyy-MM-dd")));
-        user.setAge(age);
-        user.setTelephoneNumber(telephoneNumber);
-        user.setNickname(nickname);
-        return user;
     }
 
 }
