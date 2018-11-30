@@ -6,6 +6,7 @@
 <mapper namespace="com.hw.blog.dao.Userdao">
 
     <resultMap id="user" type="com.hw.blog.model.User">
+<<<<<<< HEAD
         <result column="id" property="id"/>
         <result column="ip" property="ip"/>
         <result column="name" property="name"/>
@@ -21,6 +22,24 @@
         <result column="activate" property="activate"/>
         <result column="code" property="code"/>
         <result column="del" property="del"/>
+=======
+        <result column="user_id" property="id"/>
+        <result column="user_ip" property="ip"/>
+        <result column="user_name" property="name"/>
+        <result column="user_password" property="password"/>
+        <result column="user_email" property="email"/>
+        <result column="user_photo" property="photo"/>
+        <result column="user_level" property="level"/>
+        <result column="user_permission" property="permission"/>
+        <result column="user_regist_time" property="registTime" typeHandler="com.hw.blog.handler.Time2LongHandler"/>
+        <result column="user_birth" property="birth"/>
+        <result column="user_age" property="age"/>
+        <result column="user_phone" property="phone"/>
+        <result column="user_nickname" property="nickname"/>
+        <result column="user_activate" property="activate"/>
+        <result column="user_code" property="code"/>
+        <result column="user_del" property="del"/>
+>>>>>>> 006ce5df00c0ed39953cde3dd9a6e26b0fdfe8e1
     </resultMap>
     <select id="getTotal" resultType="java.lang.Integer" parameterType="hashmap">
         select count(1) count from hw_users where del = 0
@@ -34,6 +53,7 @@
 
     <select id="getList" resultMap="user" parameterType="hashmap">
         select
+<<<<<<< HEAD
         id,ip,name,email,level,registTime,birth,age,phone,nickname,activate
         from hw_users where del = 0
         <if test='name != null and  "%" != name'>
@@ -41,14 +61,25 @@
         </if>
         <if test=" activate != null and activate != 2 ">
             and activate = #{activate}
+=======
+        user_id,user_ip,user_name,user_email,user_level,user_permission,user_regist_time,user_birth,user_age,user_phone,user_nickname
+        from hw_users limit
+        <if test=" name != null and '' != name ">
+            where user_name like #{name}
+>>>>>>> 006ce5df00c0ed39953cde3dd9a6e26b0fdfe8e1
         </if>
         order by ${field} ${order}
         limit #{start},#{offset}
     </select>
 
     <select id="getById" resultMap="user" parameterType="hashmap">
+<<<<<<< HEAD
 		select id,ip,name,email,level,registTime,birth,age,phone,nickname
         from hw_users where id = #{id}
+=======
+		select user_id,user_ip,user_name,user_email,user_level,user_permission,user_regist_time,user_birth,user_age,user_phone,user_nickname
+        from hw_users where user_id = #{id}
+>>>>>>> 006ce5df00c0ed39953cde3dd9a6e26b0fdfe8e1
 	</select>
 
     <insert id="addUser" parameterType="user" useGeneratedKeys="true"
@@ -59,7 +90,11 @@
     </insert>
 
     <update id="updateUser" parameterType="User" useGeneratedKeys="true" keyProperty="company_id" keyColumn="id">
+<<<<<<< HEAD
         update hw_users set name = #{name}, email = #{email}, phone = #{phone} where id = #{id}
+=======
+        update hw_users set user_name = #{name}, user_email = #{email}, user_phone = #{phone} where user_id = #{id}
+>>>>>>> 006ce5df00c0ed39953cde3dd9a6e26b0fdfe8e1
     </update>
 
     <select id="getPasswordById" resultMap="user" parameterType="hashmap">

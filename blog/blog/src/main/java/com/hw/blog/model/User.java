@@ -14,6 +14,10 @@ public class User implements Serializable {
     private String email;   //用户邮箱
     private String photo;//用户头像
     private String level = "菜鸟";   //用户等级
+<<<<<<< HEAD
+=======
+    private String permission = "普通用户";  //用户权限
+>>>>>>> 006ce5df00c0ed39953cde3dd9a6e26b0fdfe8e1
     private Long registTime;//注册时间
     private String birth;  //用户生日
     private Integer age;    //用户年龄
@@ -22,6 +26,24 @@ public class User implements Serializable {
     private Integer activate;//激活状态  0未激活  1已激活
     private String code;    //注册码
     private Integer del;    //删除标识  0未删除   1已删除
+
+    public User() {
+        super();
+    }
+
+    public User(Long id, String ip, String name, String email, String photo, String level, Long registTime, String birth, Integer age, String phone, String nickname) {
+        this.id = id;
+        this.ip = ip;
+        this.name = name;
+        this.email = email;
+        this.photo = photo;
+        this.level = level;
+        this.registTime = registTime;
+        this.birth = birth;
+        this.age = age;
+        this.phone = phone;
+        this.nickname = nickname;
+    }
 
     public User() {
         super();
@@ -97,6 +119,17 @@ public class User implements Serializable {
         this.level = level;
     }
 
+<<<<<<< HEAD
+=======
+    public String getPermission() {
+        return permission;
+    }
+
+    public void setPermission(String permission) {
+        this.permission = permission;
+    }
+
+>>>>>>> 006ce5df00c0ed39953cde3dd9a6e26b0fdfe8e1
     public Long getRegistTime() {
         return registTime;
     }

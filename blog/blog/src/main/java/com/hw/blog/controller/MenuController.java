@@ -528,12 +528,13 @@ public class MenuController {
         return "senior/echarts/map";
     }
 
-    //用户    网站用户
+    //用户    编辑用户
     @RequestMapping("/user/user/list.html")
     public String userUserList() {
         return "user/user/list";
     }
 
+<<<<<<< HEAD
     //用户    添加用户
     @RequestMapping("/user/user/add.html")
     public String userUserAdd() {
@@ -541,6 +542,9 @@ public class MenuController {
     }
 
     //用户    编辑用户
+=======
+    //用户    网站用户
+>>>>>>> 006ce5df00c0ed39953cde3dd9a6e26b0fdfe8e1
     @RequestMapping("/user/user/update.html")
     public String userUserUpdate() {
         return "user/user/update_user";
