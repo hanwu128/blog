@@ -15,27 +15,47 @@ public class JsonResp {
     public static String MSG_FORBIDDEN = "has no permission";
     public static String MSG_RESOURCE_ID_ERROR = "resource id error";
 
-    private static int CODE_SUCCESS = HttpServletResponse.SC_OK;
-    private static int CODE_ERROR = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+    private static int CODE_SUCCESS = 0;
+    private static int CODE_ERROR = 1001;
 
-    private int code = -1;
-    private String message = "";
-    private Object data = null;
+    private int code = CODE_SUCCESS;
+    private String msg = MSG_SUCCESS;
+    private String count;
+    private Object data;
 
     private JsonResp() {
     }
 
-    private JsonResp(int code) {
-        this(code, "", new JSONObject());
+    public JsonResp(Object data) {
+        this.data = data;
     }
 
-    private JsonResp(int code, String msg) {
-        this(code, msg, new JSONObject());
-    }
-
-    private JsonResp(int code, String message, Object data) {
+    public JsonResp(int code, String msg, Object data) {
         this.code = code;
-        this.message = message;
+        this.msg = msg;
+        this.data = data;
+    }
+
+    public JsonResp(int code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
+
+    public JsonResp(String count, Object data) {
+        this.count = count;
+        this.data = data;
+    }
+
+    public JsonResp(Integer code, String msg, Object data) {
+        this.code = code;
+        this.msg = msg;
+        this.data = data;
+    }
+
+    public JsonResp(Integer code, String msg, String count, Object data) {
+        this.code = code;
+        this.msg = msg;
+        this.count = count;
         this.data = data;
     }
 
@@ -51,8 +71,20 @@ public class JsonResp {
         return new JsonResp(code, msg, data);
     }
 
+    public static JsonResp httpCode(HttpServletResponse resp, Integer code) {
+        JsonResp jsonResp = new JsonResp();
+        jsonResp.setCode(code);
+        jsonResp.setMsg(MSG_SUCCESS);
+        jsonResp.setData(new JSONObject());
+        return jsonResp;
+    }
+
     public static JsonResp getSuccessResp() {
         return new JsonResp(CODE_SUCCESS, MSG_SUCCESS);
+    }
+
+    public static JsonResp getSuccessResp(String count, Object data) {
+        return new JsonResp(CODE_SUCCESS, MSG_SUCCESS, count, data);
     }
 
     public static JsonResp getSuccessResp(Object data) {
@@ -63,26 +95,22 @@ public class JsonResp {
         return new JsonResp(CODE_SUCCESS, msg, data);
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-    public static JsonResp httpCode(HttpServletResponse resp, int code) {
-        resp.setStatus(code);
-        JsonResp jsonResp = new JsonResp(code);
-        jsonResp.setMessage(MSG_SUCCESS);
-        jsonResp.setData(new JSONObject());
-        return jsonResp;
-    }
 
     public JsonResp successResp(Object data) {
         this.setData(data);
         return this;
     }
 
-    public JsonResp errorResp(String msg) {
-        this.setMessage(msg);
+    public JsonResp successResp(String count, Object data) {
+        this.setCount(count);
+        this.setData(data);
         return this;
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    public JsonResp errorResp(String msg) {
+        this.setMsg(msg);
+        return this;
+    }
 
     public int getCode() {
         return code;
@@ -92,12 +120,20 @@ public class JsonResp {
         this.code = code;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
     }
 
     public Object getData() {

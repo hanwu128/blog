@@ -24,4 +24,8 @@ public interface Userdao {
     Integer updatePassword(Map<String, Object> map);
 
     Integer activateUser(String code);
+
+    Integer delUser(List<String> ids);
+
+    User getPassWordById(Long id);
 }

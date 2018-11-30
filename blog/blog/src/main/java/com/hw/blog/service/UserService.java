@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface UserService {
 
-    int getTotal(String name);
+    int getTotal(String name, Integer activate);
 
-    List<User> getList(int start, int offset, String like);
+    List<User> getList(int start, int offset, User user, String field, String order);
 
     User getById(Long id);
 
@@ -19,4 +19,8 @@ public interface UserService {
     Integer updateUser(User user);
 
     Integer activateUser(String code);
+
+    Integer delUser(List<String> ids);
+
+    User getPassWordById(Long id);
 }
