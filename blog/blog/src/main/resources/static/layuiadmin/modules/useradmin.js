@@ -6,7 +6,6 @@
         id: "id",
         elem: "#LAY-user-manage",
         url: "/user/list",
-<<<<<<< HEAD
         cols: [[{title: '序号', width: 40, type: 'numbers'},
             {field: "name", title: "用户名", minWidth: 80, maxWidth: 100},
             {field: "nickname", title: "昵称", minWidth: 80, maxWidth: 100},
@@ -77,29 +76,6 @@
                         }
                     }
                 });
-=======
-        cols: [[{type: "checkbox", fixed: "left"},
-            {field: "name", title: "用户名", minWidth: 100},
-            {field: "photo", title: "头像", width: 100, templet: "#imgTpl"},
-            {field: "phone", title: "手机"},
-            {field: "email", title: "邮箱"},
-            {field: "level", width: 80, title: "等级"},
-            {field: "ip", title: "IP"},
-            {field: "registTime", title: "加入时间", sort: !0},
-            {title: "操作", width: 150, align: "center", fixed: "right", toolbar: "#table-useradmin-webuser"}
-        ]],
-        page: !0,
-        limit: 30,
-        height: "full-220",
-        text: "对不起，加载出现异常！"
-    }),
-        i.on("tool(LAY-user-manage)", function (e) {
-            var id = e.data['id'];
-            if ("del" === e.event) layer.prompt({formType: 1, title: "敏感操作，请验证口令"}, function (t, i) {
-                layer.close(i), layer.confirm("真的删除行么", function (t) {
-                    e.del(), layer.close(t)
-                })
->>>>>>> 006ce5df00c0ed39953cde3dd9a6e26b0fdfe8e1
             }); else if ("edit" === e.event) {
                 t(e.tr);
                 layer.open({
@@ -118,24 +94,16 @@
                                 url: '/user/update',
                                 data: t.field,
                                 done: function (res) {
-<<<<<<< HEAD
                                     i.reload("LAY-user-front-submit");
                                     layer.close(e);
                                     location.reload();
-=======
-                                    i.reload("LAY-user-front-submit"), layer.close(e);
->>>>>>> 006ce5df00c0ed39953cde3dd9a6e26b0fdfe8e1
                                 }
                             });
                         }), n.trigger("click")
                     },
                     success: function (e, t) {
                         admin.req({
-<<<<<<< HEAD
                             url: '/user/' + id,
-=======
-                            url: '/user/user/' + id,
->>>>>>> 006ce5df00c0ed39953cde3dd9a6e26b0fdfe8e1
                             data: '',
                             done: function (res) {
                                 var json = eval(res);
@@ -225,7 +193,6 @@
                 }
             })
         }
-<<<<<<< HEAD
     }),
         //监听搜索
         f.on('submit(LAY-user-front-search)', function (data) {
@@ -281,8 +248,3 @@ function formatTime(time) {
     var str = y + "-" + m + "-" + d + " " + h + ":" + M;
     return str;
 }
-=======
-    }), e("useradmin", {})
-})
-;
->>>>>>> 006ce5df00c0ed39953cde3dd9a6e26b0fdfe8e1

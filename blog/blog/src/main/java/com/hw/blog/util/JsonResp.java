@@ -18,17 +18,10 @@ public class JsonResp {
     private static int CODE_SUCCESS = 0;
     private static int CODE_ERROR = 1001;
 
-<<<<<<< HEAD
     private int code = CODE_SUCCESS;
     private String msg = MSG_SUCCESS;
     private String count;
     private Object data;
-=======
-    private int code = -1;
-    private String msg = "";
-    private String count = "";
-    private Object data = null;
->>>>>>> 006ce5df00c0ed39953cde3dd9a6e26b0fdfe8e1
 
     private JsonResp() {
     }
@@ -59,21 +52,9 @@ public class JsonResp {
         this.data = data;
     }
 
-<<<<<<< HEAD
     public JsonResp(Integer code, String msg, String count, Object data) {
         this.code = code;
         this.msg = msg;
-=======
-    public JsonResp(int code, String msg, Object data) {
-        this.code = code;
-        this.msg = msg;
-        this.data = data;
-    }
-
-    public JsonResp(int code, String msg, String count, Object data) {
-        this.code = code;
-        this.msg = msg;
->>>>>>> 006ce5df00c0ed39953cde3dd9a6e26b0fdfe8e1
         this.count = count;
         this.data = data;
     }
@@ -114,31 +95,15 @@ public class JsonResp {
         return new JsonResp(CODE_SUCCESS, msg, data);
     }
 
-<<<<<<< HEAD
-=======
-    ////////////////////////////////////////////////////////////////////////////
-    public static JsonResp httpCode(HttpServletResponse resp, int code) {
-        resp.setStatus(code);
-        JsonResp jsonResp = new JsonResp(code);
-        jsonResp.setMsg(MSG_SUCCESS);
-        jsonResp.setData(new JSONObject());
-        return jsonResp;
-    }
->>>>>>> 006ce5df00c0ed39953cde3dd9a6e26b0fdfe8e1
 
     public JsonResp successResp(Object data) {
         this.setData(data);
         return this;
     }
 
-<<<<<<< HEAD
     public JsonResp successResp(String count, Object data) {
         this.setCount(count);
         this.setData(data);
-=======
-    public JsonResp errorResp(String msg) {
-        this.setMsg(msg);
->>>>>>> 006ce5df00c0ed39953cde3dd9a6e26b0fdfe8e1
         return this;
     }
 

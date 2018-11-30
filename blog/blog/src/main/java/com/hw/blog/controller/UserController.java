@@ -16,10 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-<<<<<<< HEAD
 import java.util.Arrays;
-=======
->>>>>>> 006ce5df00c0ed39953cde3dd9a6e26b0fdfe8e1
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -38,7 +35,6 @@ public class UserController {
     @Resource
     private MessagesService messagesService;
 
-<<<<<<< HEAD
     /**
      * 用户列表
      *
@@ -54,34 +50,6 @@ public class UserController {
                           @RequestParam(value = "page") Integer page, @RequestParam(value = "limit") Integer limit,
                           @RequestParam(value = "field", required = false) String field,
                           @RequestParam(value = "order", required = false) String order) {
-=======
-    @GetMapping("/list")
-    public Object getList(HttpServletRequest request, HttpServletResponse response) {
-        try {
-
-            List<User> userList = userService.getList(0, 10, "%");
-            return new JsonResp(0, "success", "100", userList);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return JsonResp.httpCode(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR).errorResp(messagesService.getMessage("error", new Object[]{"query user is error "}));
-    }
-
-    @GetMapping("/user/{id}")
-    public Object getUser(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") Long id) {
-        User user = userService.getById(id);
-        return new JsonResp(0, "success", user);
-    }
-
-    @GetMapping("/update")
-    public Object updateUser(HttpServletRequest request, HttpServletResponse response, User user) {
-        userService.updateUser(user);
-        return new JsonResp(0, "success", user);
-    }
-
-    @PostMapping("/list2")
-    public Object getList2(HttpServletRequest request, HttpServletResponse response, @RequestBody JSONObject params) {
->>>>>>> 006ce5df00c0ed39953cde3dd9a6e26b0fdfe8e1
         try {
             if (page == null || page <= 0) page = 1;
             if (limit == null || limit <= 0) limit = 10;
