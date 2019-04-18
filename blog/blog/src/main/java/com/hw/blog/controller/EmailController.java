@@ -21,7 +21,7 @@ import java.util.List;
 public class EmailController {
 
     @Autowired
-    private static JavaMailSender javaMailSender;
+    private static JavaMailSender javaMailSender; 
 
     @GetMapping("/send/{code}")
     public Object sendEmail(HttpServletRequest request, HttpServletResponse response, @PathVariable String code) {
